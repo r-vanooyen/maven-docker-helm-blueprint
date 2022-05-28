@@ -19,8 +19,8 @@
             "@semantic-release/exec",
             {
                 "verifyConditionsCmd": "mvn verify",
-                "publishCmd"         : "mvn deploy -DskipTests -DskipITs",
                 "prepareCmd"         : "mvn versions:set -DnewVersion=${nextRelease.version}",
+                "publishCmd"         : "mvn deploy -DskipTests -DskipITs",
                 "successCmd"         : "mvn versions:set -DnextSnapshot=true"
             }
         ],
@@ -28,9 +28,8 @@
             "@semantic-release/exec",
             {
                 "verifyConditionsCmd": "echo $HELM_PWD | helm login --username $HELM_USER --password-stdin $HELM_REGISTRY",
-                "publishCmd"         : "helm push *.tgz $HELM_REGISTRY",
-                "prepareCmd": "helm package --version ${nextRelease.version} --app-version ${nextRelease.version} charts",
-
+                "prepareCmd"         : "helm package --version ${nextRelease.version} --app-version ${nextRelease.version} charts",
+                "publishCmd"         : "helm push *.tgz $HELM_REGISTRY"
             }
         ]
     ]
