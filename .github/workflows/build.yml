@@ -16,7 +16,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  maven:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,19 +31,9 @@ jobs:
       - name: Build with Maven
         run: mvn -B verify --file pom.xml
 
-  docker:
-    runs-on: ubuntu-latest
-    needs: maven
-
-    steps:
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$(date +%s)
 
-  helm:
-    runs-on: ubuntu-latest
-    needs: docker
-
-    steps:
       - name: Set up Helm
         uses: azure/setup-helm@v1
         with:
