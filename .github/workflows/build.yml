@@ -55,4 +55,4 @@ jobs:
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --chart-dirs charts
+        run: ct lint --chart-dirs charts --charts charts
