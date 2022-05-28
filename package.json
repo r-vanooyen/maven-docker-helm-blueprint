@@ -3,7 +3,8 @@
         "semantic-release": "^19.0.2"
     },
     "dependencies"   : {
-        "@semantic-release/exec": "github:semantic-release/exec",
-        "@semantic-release/git" : "github:semantic-release/git"
+        "@eshepelyuk/semantic-release-helm-oci": "github:eshepelyuk/semantic-release-helm-oci",
+        "@semantic-release/exec"               : "github:semantic-release/exec",
+        "@semantic-release/git"                : "github:semantic-release/git"
     }
 }
