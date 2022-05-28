@@ -31,3 +31,5 @@ jobs:
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REGISTRY_USERNAME: "github-actions"
+          REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
