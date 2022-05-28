@@ -1,0 +1,34 @@
+{
+    "branches": "master",
+    "plugins" : [
+        "@semantic-release/commit-analyzer",
+        "@semantic-release/release-notes-generator",
+        "@semantic-release/git",
+        [
+            "@semantic-release/github",
+            {
+                "assets": [
+                    {
+                        "path": "target/demo-.jar",
+                        "label": "lib"
+                    }
+                ]
+            }
+        ],
+        [
+            "@semantic-release/exec",
+            {
+                "verifyConditionsCmd": "mvn verify",
+                "publishCmd"         : "mvn deploy -DskipTests -DskipITs",
+                "prepareCmd"         : "mvn versions:set -DnewVersion=${nextRelease.version}",
+                "successCmd"         : "mvn versions:set -DnextSnapshot=true"
+            }
+        ],
+        [
+            "@eshepelyuk/semantic-release-helm-oci",
+            {
+                "registry": "oci://ghcr.io/r-vanooyen/maven-docker-helm-blueprint"
+            }
+        ]
+    ]
+}

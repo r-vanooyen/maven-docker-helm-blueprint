@@ -1,2 +1,8 @@
 # maven-docker-helm-blueprint
-blueprint for a maven webapp with dockerimage and helm chart
+
+my blueprint for a maven webapp, with a dockerimage and helm chart
+
+## content
+
+- spring boot starter webapp
+- dockerfile from https://spring.io/guides/gs/spring-boot-docker/
