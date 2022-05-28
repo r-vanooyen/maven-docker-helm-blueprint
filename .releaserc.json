@@ -1,5 +1,5 @@
 {
-    "branches": "master",
+    "branches": "main",
     "plugins" : [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
@@ -9,7 +9,7 @@
             {
                 "assets": [
                     {
-                        "path": "target/demo-.jar",
+                        "path" : "target/demo-.jar",
                         "label": "lib"
                     }
                 ]
