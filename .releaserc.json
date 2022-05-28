@@ -25,9 +25,12 @@
             }
         ],
         [
-            "@eshepelyuk/semantic-release-helm-oci",
+            "@semantic-release/exec",
             {
-                "registry": "oci://ghcr.io/r-vanooyen/maven-docker-helm-blueprint"
+                "verifyConditionsCmd": "echo $HELM_PWD | helm login --username $HELM_USER --password-stdin $HELM_REGISTRY",
+                "publishCmd"         : "helm push *.tgz $HELM_REGISTRY",
+                "prepareCmd"         : "helm package --version ${nextRelease.version} --app-version ${nextRelease.version} charts",
+
             }
         ]
     ]
