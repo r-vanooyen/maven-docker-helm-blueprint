@@ -61,6 +61,12 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.1.0
+        uses: docker://quay.io/helmpack/chart-releaser:v1.4.0
+        run: |
+          cr package charts
+          cr upload -c ${{ github.ref_name }}
+          cr index -c https://$CR_OWNER.github.io/$CR_GIT_REPO --push
         env:
+          CR_OWNER: ${{ github.repository_owner }}
+          CR_GIT_REPO: "maven-docker-helm-blueprint"
           CR_TOKEN: ${{ github.token }}
