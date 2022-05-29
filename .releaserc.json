@@ -27,9 +27,8 @@
         [
             "@semantic-release/exec",
             {
-                "verifyConditionsCmd": "echo $HELM_PWD | helm registry login --username $HELM_USER --password-stdin $HELM_REGISTRY",
                 "prepareCmd"         : "helm package --version ${nextRelease.version} --app-version ${nextRelease.version} charts",
-                "publishCmd"         : "helm push *.tgz $HELM_REGISTRY"
+                "publishCmd": "helm push *.tgz oci://ghcr.io/r-vanooyen/maven-docker-helm-blueprint"
             }
         ]
     ]

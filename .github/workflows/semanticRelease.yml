@@ -32,10 +32,13 @@ jobs:
         with:
           version: v3.8.1
 
+      - run: "echo $HELM_PWD | helm registry login --username $HELM_USER --password-stdin $HELM_REGISTRY"
+        env:
+          HELM_USER: "github-actions"
+          HELM_PWD: ${{ secrets.GITHUB_TOKEN }}
+          HELM_REGISTRY: oci://ghcr.io/${{ github.repository }}
+
       - run: npm ci
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HELM_USER: "github-actions"
-          HELM_PWD: ${{ secrets.GITHUB_TOKEN }}
-          HELM_REGISTRY: oci://ghcr.io/${{ github.repository }}
