@@ -18,17 +18,15 @@
         [
             "@semantic-release/exec",
             {
-                "verifyConditionsCmd": "mvn verify",
-                "prepareCmd"         : "mvn versions:set -DnewVersion=${nextRelease.version}",
-                "publishCmd"         : "mvn deploy -DskipTests -DskipITs",
-                "successCmd"         : "mvn versions:set -DnextSnapshot=true"
+                "prepareCmd": "mvn versions:set -DnewVersion=${nextRelease.version}",
+                "successCmd": "mvn versions:set -DnextSnapshot=true"
             }
         ],
         [
             "@semantic-release/exec",
             {
-                "prepareCmd"         : "helm package --version ${nextRelease.version} --app-version ${nextRelease.version} charts",
-                "publishCmd": "helm push *.tgz oci://ghcr.io/r-vanooyen/maven-docker-helm-blueprint"
+                "prepareCmd": "sed -i yaml -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
+                "successCmd": "xmllint --xpath \"//*[local-name()='project']/*[local-name()='version']/text()\" pom.xml | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml"
             }
         ]
     ]
