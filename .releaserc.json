@@ -25,7 +25,7 @@
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "sed -i yaml -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
+                "prepareCmd": "sed -i -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
                 "successCmd": "xmllint --xpath \"//*[local-name()='project']/*[local-name()='version']/text()\" pom.xml | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml"
             }
         ]
