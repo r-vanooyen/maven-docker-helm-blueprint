@@ -64,24 +64,3 @@ jobs:
         uses: helm/chart-releaser-action@v1.1.0
         env:
           CR_TOKEN: ${{ github.token }}
-
-      - name: Update CHANGELOG
-        id: changelog
-        uses: Requarks/changelog-action@v1
-        with:
-          token: ${{ github.token }}
-          tag: ${{ github.ref_name }}
-          writeToFile: false
-
-      - name: Create Release
-        uses: ncipollo/release-action@v1
-        with:
-          allowUpdates: true
-          draft: false
-          name: ${{ github.ref_name }}
-          tag: ${{ github.ref_name }}
-          body: ${{ steps.changelog.outputs.changes }}
-          token: ${{ github.token }}
-
-#https://thecodinganalyst.github.io/knowledgebase/Basic-guide-to-Semantic-Release/
-# maybe use semantic release to get maven and helm version in sync cause maven release plugin can not handle helm versions
