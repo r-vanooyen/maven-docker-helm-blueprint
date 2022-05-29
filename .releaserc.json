@@ -22,9 +22,8 @@
             "@semantic-release/git",
             {
                 "assets": [
-                    'CHANGELOG.md',
-                    'package.json',
-                    'package-lock.json',
+                    "package.json",
+                    "package-lock.json",
                     "charts/Chart.yaml",
                     "pom.xml"
                 ]
