@@ -35,5 +35,7 @@ jobs:
         run: |
           git config user.email "semantic-release-bot@martynus.net"
           git config user.name "semantic-release-bot"
-          git commit -m "chore(release): next release" pom.xml charts/Chart.yaml 
+          git add pom.xml
+          git add charts/Chart.yaml
+          git commit -m "chore(release): [skip ci] next release" 
           git push
