@@ -3,18 +3,7 @@
     "plugins" : [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
-        "@semantic-release/git",
-        [
-            "@semantic-release/github",
-            {
-                "assets": [
-                    {
-                        "path" : "target/demo-.jar",
-                        "label": "lib"
-                    }
-                ]
-            }
-        ],
+        "@semantic-release/github",
         [
             "@semantic-release/exec",
             {
@@ -27,6 +16,16 @@
             {
                 "prepareCmd": "sed -i -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
                 "successCmd": "xmllint --xpath \"//*[local-name()='project']/*[local-name()='version']/text()\" pom.xml | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml"
+            }
+        ],
+        [
+            "@semantic-release/git",
+            {
+                "assets" : [
+                    "charts/Chart.yaml",
+                    "pom.xml"
+                ],
+                "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
             }
         ]
     ]

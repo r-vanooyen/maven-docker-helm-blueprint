@@ -30,3 +30,6 @@ jobs:
       - run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
+
+      - name: "commit pom and chart.yaml"
+        run: 'git commit -m "chore(release): next release" pom.xml chart/Chart.yaml && git push'
