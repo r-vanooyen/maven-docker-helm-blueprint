@@ -32,4 +32,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_PAT }}
 
       - name: "commit pom and chart.yaml"
-        run: 'git commit -m "chore(release): next release" pom.xml charts/Chart.yaml && git push'
+        run: |
+          git config user.email "semantic-release-bot@martynus.net"
+          git config user.name "semantic-release-bot"
+          git commit -m "chore(release): next release" pom.xml charts/Chart.yaml 
+          git push
