@@ -7,15 +7,15 @@
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "mvn versions:set -DnewVersion=${nextRelease.version}",
-                "successCmd": "mvn versions:set -DnextSnapshot=true"
+                "prepareCmd": "mvn -B versions:set -DnewVersion=${nextRelease.version}",
+                "successCmd": "mvn -B versions:set -DnextSnapshot=true"
             }
         ],
         [
             "@semantic-release/exec",
             {
                 "prepareCmd": "sed -i -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
-                "successCmd": "mvn -q -Dexec.executable=echo -Dexec.args='${return \"${project.version}\"}' --non-recursive exec:exec | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml"
+                "successCmd": "mvn -q -Dexec.executable=echo -Dexec.args='&#36;{project.version}' --non-recursive exec:exec | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml"
             }
         ],
         [
