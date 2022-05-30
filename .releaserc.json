@@ -31,9 +31,9 @@
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "sed -i -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
+                "prepareCmd": "sed -i -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextReleaserelease-name-template.version}\"/' charts/Chart.yaml",
                 "publishCmd": "cr package charts",
-                "successCmd": "mvn -q --non-recursive exec:exec | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml && cr index --push --release-name-template 'v{{ .Version }}'"
+                "successCmd": "mvn -q --non-recursive exec:exec | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml && cr index --push -- 'v{{ .Version }}'"
             }
         ],
         [
