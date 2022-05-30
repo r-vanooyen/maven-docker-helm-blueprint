@@ -3,19 +3,37 @@
     "plugins" : [
         "@semantic-release/commit-analyzer",
         "@semantic-release/release-notes-generator",
-        "@semantic-release/github",
+        [
+            "@semantic-release/github",
+            {
+                "assets": [
+                    {
+                        "path": ".cr-release-packages/maven-docker-helm-blueprint-*.tgz",
+                        "label": "helm chart"
+                    }
+                ]
+            }
+        ],
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "mvn -B versions:set -DnewVersion=${nextRelease.version}",
+                "prepareCmd": "mvn -B versions:set -DnewVersion=${nextRelease.version} && mvn -B verify",
                 "successCmd": "mvn -B versions:set -DnextSnapshot=true"
             }
         ],
         [
             "@semantic-release/exec",
             {
+                "prepareCmd": "docker build -t ghcr.io/r-vanooyen/maven-docker-helm-blueprint:${nextRelease.version} .",
+                "publishCmd": "docker push ghcr.io/r-vanooyen/maven-docker-helm-blueprint:${currentRelease.version}"
+            }
+        ],
+        [
+            "@semantic-release/exec",
+            {
                 "prepareCmd": "sed -i -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
-                "successCmd": "mvn -q --non-recursive exec:exec | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml"
+                "publishCmd": "cr package charts",
+                "successCmd": "mvn -q --non-recursive exec:exec | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml && cr index --push"
             }
         ],
         [
