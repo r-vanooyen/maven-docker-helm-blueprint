@@ -25,7 +25,7 @@
             "@semantic-release/exec",
             {
                 "prepareCmd": "docker build -t ghcr.io/r-vanooyen/maven-docker-helm-blueprint:${nextRelease.version} .",
-                "publishCmd": "docker push ghcr.io/r-vanooyen/maven-docker-helm-blueprint:${currentRelease.version}"
+                "publishCmd": "docker push ghcr.io/r-vanooyen/maven-docker-helm-blueprint:${nextRelease.version}"
             }
         ],
         [
