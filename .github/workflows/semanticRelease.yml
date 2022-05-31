@@ -7,7 +7,6 @@ on:
 
 env:
   CR_OWNER: ${{ github.repository_owner }}
-  CR_GIT_REPO: "maven-docker-helm-blueprint"
   CR_TOKEN: ${{ github.token }}
 
   REGISTRY: ghcr.io
@@ -43,6 +42,8 @@ jobs:
         uses: helm/chart-releaser-action@v1.4.0
         with:
           install_only: true
+      - run: echo ::set-env name=CR_GIT_REPO::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}')
+        shell: bash
       - name: Set up git
         run: |
           git config user.email "semantic-release-bot@martynus.net"

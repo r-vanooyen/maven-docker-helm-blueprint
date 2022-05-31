@@ -8,7 +8,7 @@
             {
                 "assets": [
                     {
-                        "path" : ".cr-release-packages/maven-docker-helm-blueprint-*.tgz",
+                        "path" : ".cr-release-packages/*.tgz",
                         "label": "helm chart"
                     }
                 ]
@@ -25,8 +25,8 @@
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "docker build -t ghcr.io/r-vanooyen/maven-docker-helm-blueprint:${nextRelease.version} .",
-                "publishCmd": "docker push ghcr.io/r-vanooyen/maven-docker-helm-blueprint:${nextRelease.version}"
+                "prepareCmd": "docker build -t $REGISTRY/$IMAGE_NAME:${nextRelease.version} .",
+                "publishCmd": "docker push $REGISTRY/$IMAGE_NAME:${nextRelease.version}"
             }
         ],
         [
