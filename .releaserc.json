@@ -8,7 +8,7 @@
             {
                 "assets": [
                     {
-                        "path": ".cr-release-packages/maven-docker-helm-blueprint-*.tgz",
+                        "path" : ".cr-release-packages/maven-docker-helm-blueprint-*.tgz",
                         "label": "helm chart"
                     }
                 ]
@@ -17,9 +17,9 @@
         [
             "@semantic-release/exec",
             {
-                "verifyRelease": "mvn -B versions:set -DnewVersion=${nextRelease.version}",
-                "prepareCmd"   : "mvn -B verify",
-                "successCmd"   : "mvn -B versions:set -DnextSnapshot=true"
+                "verifyReleaseCmd": "mvn -B versions:set -DnewVersion=${nextRelease.version}",
+                "prepareCmd"      : "mvn -B verify",
+                "successCmd"      : "mvn -B versions:set -DnextSnapshot=true"
             }
         ],
         [
@@ -32,10 +32,10 @@
         [
             "@semantic-release/exec",
             {
-                "verifyRelease": "sed -i -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
-                "prepareCmd"   : "cr package charts",
-                "publishCmd"   : "cr index --push --release-name-template '${nextRelease.gitTag}'",
-                "successCmd"   : "mvn -q --non-recursive exec:exec | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml"
+                "verifyReleaseCmd": "sed -i -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
+                "prepareCmd"      : "cr package charts",
+                "publishCmd"      : "cr index --push --release-name-template '${nextRelease.gitTag}'",
+                "successCmd"      : "mvn -q --non-recursive exec:exec | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml"
             }
         ],
         [
