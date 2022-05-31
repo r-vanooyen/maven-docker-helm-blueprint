@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  maven-docker-helm-blueprint:
+  - apiVersion: v2
+    appVersion: 1.1.7
+    created: "2022-05-31T07:56:57.326430595Z"
+    description: A Helm chart for Kubernetes
+    digest: b5bbb225a2068bc3df18a0515d77aa714f0b10b8ecd8a09b0cf1301a10eb4f4c
+    name: maven-docker-helm-blueprint
+    type: application
+    urls:
+    - https://github.com/r-vanooyen/maven-docker-helm-blueprint/releases/download/v1.1.7/maven-docker-helm-blueprint-1.1.7.tgz
+    version: 1.1.7
+generated: "2022-05-31T07:56:57.326438795Z"
