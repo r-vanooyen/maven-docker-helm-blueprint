@@ -17,8 +17,9 @@
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "mvn -B versions:set -DnewVersion=${nextRelease.version} && mvn -B verify",
-                "successCmd": "mvn -B versions:set -DnextSnapshot=true"
+                "verifyRelease": "mvn -B versions:set -DnewVersion=${nextRelease.version}",
+                "prepareCmd"   : "mvn -B verify",
+                "successCmd"   : "mvn -B versions:set -DnextSnapshot=true"
             }
         ],
         [
@@ -31,9 +32,10 @@
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "sed -i -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
-                "publishCmd": "cr package charts",
-                "successCmd": "mvn -q --non-recursive exec:exec | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml && cr index --push --release-name-template 'v{{ .Version }}'"
+                "verifyRelease": "sed -i -e 's/version: .*/version: ${nextRelease.version}/' -e 's/appVersion: .*/appVersion: \"${nextRelease.version}\"/' charts/Chart.yaml",
+                "prepareCmd"   : "cr package charts",
+                "publishCmd"   : "cr index --push --release-name-template '${nextRelease.gitTag}'",
+                "successCmd"   : "mvn -q --non-recursive exec:exec | xargs -I {} sed -i -e 's/version: .*/version: {}/' -e 's/appVersion: .*/appVersion: \"{}\"/' charts/Chart.yaml"
             }
         ],
         [
